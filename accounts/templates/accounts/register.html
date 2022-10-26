@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login </title>
+    {% include 'accounts/header.html' %}
+</head>
+<body>
+<div class="login-page">
+    <div class="container d-flex align-items-center">
+        <div class="form-holder has-shadow">
+            <div class="row">
+                <!-- Logo & Information Panel-->
+                <div class="col-lg-6">
+                    <div class="info d-flex align-items-center">
+                        <div class="content">
+                            <div class="logo">
+                                <h1>Welcome</h1>
+                            </div>
+                            <p>Registration</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form Panel    -->
+                <div class="col-lg-6 bg-white">
+                    <div class="form d-flex align-items-center">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col">
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="alert alert-info"><strong></strong> {{ message }}</div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="mb-4">
+
+                                <h2>REGISTER</h2>
+                                <span class="">Create an account below</span>
+                            </div>
+                            <form method="post" class="form-validate">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input id="login-username" type="text" name="username" required
+                                           data-msg="Please enter your username" class="input-material">
+                                    <label for="login-username" class="label-material">Username</label>
+                                </div>
+                                <div class="form-group">
+                                    <input id="login-name" type="text" name="name" required
+                                           data-msg="Please enter your full name" class="input-material">
+                                    <label for="login-name" class="label-material">Full Name</label>
+                                </div>
+                                <div class="form-group">
+                                    <input id="login-msisdn" type="text" name="phone_number" required
+                                           data-msg="Please enter your phone number" class="input-material">
+                                    <label for="login-msisdn" class="label-material">Phone Number</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="marital_status">Marital Status</label>
+                                    <select class="form-control selectpicker" data-style="btn btn-link" required
+                                            id="marital_status" name="marital_status">
+                                        <option>--select marital status--</option>
+                                        <option value="Single">Single</option>
+                                        <option value="Married">Married</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <select class="form-control selectpicker" data-style="btn btn-link" required
+                                            id="gender" name="gender">
+                                        <option>--select gender--</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <div class='input-group date' id='dob-picker'>
+                                        <label for="dob">Date Of Birth</label>
+                                        <input type='date' name="date_of_birth" id="dob" class="input-material"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input id="reg-password2" type="password" name="password1" required
+                                           data-msg="Please enter your password" class="input-material">
+                                    <label for="reg-password2" class="label-material">Create Password</label>
+                                </div>
+                                <div class="form-group">
+                                    <input id="reg-password1" type="password" name="password2" required
+                                           data-msg="Please enter your password" class="input-material">
+                                    <label for="reg-password1" class="label-material">Confirm Password</label>
+                                </div>
+
+                                <input type="submit" class="btn btn-primary" value="Create Account"/>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyrights text-center">
+        <p>2021 &copy; GBV.</p>
+    </div>
+</div>
+
+{% include 'accounts/scripts.html' %}
+</body>
+</html>
