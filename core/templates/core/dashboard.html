@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     Dashboard
@@ -38,7 +39,7 @@
                 <p class="card-category">Enter details of the incident</p>
             </div>
             <div class="card-body">
-                <form method="post" class="form-validate">
+                <form method="post" class="form-validate" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="perpetrator_name" class="bmd-label-floating">Perpetrator Name</label>
@@ -145,6 +146,7 @@
                         <th>Perpetrator</th>
                         <th>Date Reported</th>
                         <th>Case Status</th>
+                        <th>Image</th>
                         </thead>
                         <tbody>
                         {% for incident in incidents %}
@@ -153,10 +155,22 @@
                                 <td>{{ incident.perpetrator_name }}</td>
                                 <td>{{ incident.date_of_incident|timesince }} ago</td>
                                 <td>Pending</td>
+                                <td>
+                                    {% if incident.perpetrator_image %}
+                                        <div class="card-profile shadow-none">
+                                            <div class="card-avatar shadow-none">
+                                                <a href="#pablo">
+                                                    <img class="img" src="{{ incident.perpetrator_image.url }}"/>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        No Image Provided
+                                    {% endif %}
+
+                                </td>
                             </tr>
                         {% endfor %}
-
-
                         </tbody>
                     </table>
                 </div>

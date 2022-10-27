@@ -14,7 +14,7 @@ def empty(request):
 def dashboard(request):
 
     if request.method == 'POST':
-        form = IncidentForm(request.POST)
+        form = IncidentForm(request.POST, request.FILES)
         if form.is_valid():
             incident = form.save(commit=False)
             incident.user = request.user
