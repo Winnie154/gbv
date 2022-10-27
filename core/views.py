@@ -30,7 +30,7 @@ def dashboard(request):
 def cases_views(request):
 
     context = {
-        'incidents': Incident.objects.filter(user=request.user).order_by('-p'),
+        'incidents': Incident.objects.filter(user=request.user).order_by('-pk'),
         'counties': [{'key': x[0], 'value': x[1]} for x in Counties.choices]
     }
     return render(request, 'core/report case.html', context)
