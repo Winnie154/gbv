@@ -75,7 +75,7 @@ class Incident(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     offence_category = models.CharField(max_length=150, choices=OffenceCategory.choices)
     date_of_incident = models.DateTimeField()
-    country_of_incident = models.CharField(max_length=100, choices=Counties.choices)
+    county_of_incident = models.CharField(max_length=100, choices=Counties.choices)
     location_of_incident = models.CharField(max_length=150, blank=True, null=True, default=None)
     perpetrator_name = models.CharField(max_length=150)
     perpetrator_phone_number = models.CharField(max_length=50)

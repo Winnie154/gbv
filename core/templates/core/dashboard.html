@@ -105,9 +105,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="relationship_to_perpetrator" class="md-label-floating">County Where Incident Occurred</label>
+                        <label for="county_of_incident" class="md-label-floating">County Where Incident Occurred</label>
                         <select class="form-control selectpicker" data-style="btn btn-link" required
-                                id="relationship_to_perpetrator" name="relationship_to_perpetrator">
+                                id="county_of_incident" name="county_of_incident">
                             <option></option>
                             {% for county in counties %}
                                 <option value="{{ county.value }}">{{ county.key }}</option>
@@ -147,14 +147,12 @@
                         <th>Case Status</th>
                         </thead>
                         <tbody>
-                        {% for user in users %}
+                        {% for incident in incidents %}
                             <tr>
-                                <td>First Name</td>
-                                <td>Second Name</td>
-                                <td>Institution ID</td>
-                                <td><a href="#">
-                                    <button type="button" class="btn btn-primary pull-right">View Details</button>
-                                </a></td>
+                                <td>{{ incident.pk }}</td>
+                                <td>{{ incident.perpetrator_name }}</td>
+                                <td>{{ incident.date_of_incident|timesince }} ago</td>
+                                <td>Pending</td>
                             </tr>
                         {% endfor %}
 

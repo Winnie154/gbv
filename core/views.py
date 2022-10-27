@@ -15,9 +15,10 @@ def dashboard(request):
 
     if request.method == 'POST':
         form = IncidentForm(request.POST)
-        form.user = request.user
         if form.is_valid():
-            form.save()
+            incident = form.save(commit=False)
+            incident.user = request.user
+            incident.save()
             return redirect('dashboard')
         else:
             messages.warning(request, form.errors)
