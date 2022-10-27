@@ -19,12 +19,18 @@ def dashboard(request):
             incident = form.save(commit=False)
             incident.user = request.user
             incident.save()
-            return redirect('dashboard')
+            return redirect('cases')
         else:
             messages.warning(request, form.errors)
 
+    return render(request, 'core/dashboard.html')
+
+
+@login_required
+def cases_views(request):
+
     context = {
-        'incidents': Incident.objects.filter(user=request.user),
+        'incidents': Incident.objects.filter(user=request.user).order_by('-p'),
         'counties': [{'key': x[0], 'value': x[1]} for x in Counties.choices]
     }
-    return render(request, 'core/dashboard.html', context)
+    return render(request, 'core/report case.html', context)

@@ -32,7 +32,7 @@
 {#        </form>#}
 {#    </div>#}
 
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title">Report New Case</h4>
@@ -129,51 +129,6 @@
                     <button type="submit" class="btn btn-primary pull-right">Submit</button>
                     <div class="clearfix"></div>
                 </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header card-header-primary">
-                <h4 class="card-title ">Cases</h4>
-                <p class="card-category"> Reported Cases</p>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead class=" text-primary">
-                        <th>Case No</th>
-                        <th>Perpetrator</th>
-                        <th>Date Reported</th>
-                        <th>Case Status</th>
-                        <th>Image</th>
-                        </thead>
-                        <tbody>
-                        {% for incident in incidents %}
-                            <tr>
-                                <td>{{ incident.pk }}</td>
-                                <td>{{ incident.perpetrator_name }}</td>
-                                <td>{{ incident.date_of_incident|timesince }} ago</td>
-                                <td>Pending</td>
-                                <td>
-                                    {% if incident.perpetrator_image %}
-                                        <div class="card-profile shadow-none">
-                                            <div class="card-avatar shadow-none">
-                                                <a href="#pablo">
-                                                    <img class="img" src="{{ incident.perpetrator_image.url }}"/>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    {% else %}
-                                        No Image Provided
-                                    {% endif %}
-
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
     </div>
