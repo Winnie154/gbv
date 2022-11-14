@@ -51,11 +51,11 @@ def case_details(request, incident_id):
     try:
         case = Incident.objects.get(pk=incident_id)
     except Incident.DoesNotExist:
-        # messages.warning(request, 'The incident does not exist')
+        messages.warning(request, 'The incident does not exist')
         return redirect('police-dashboard')
 
     if not case.police.all().contains(request.user):
-        # messages.warning(request, 'You are not authorized to view this case')
+        messages.warning(request, 'You are not authorized to view this case')
         return redirect('police-dashboard')
 
     if request.method == 'POST':
@@ -63,7 +63,7 @@ def case_details(request, incident_id):
         try:
             status_ = IncidentEventType(status)
         except ValueError:
-            # messages.warning(request, f'Invalid status ({status}) selected. Refresh and try again')
+            messages.warning(request, f'Invalid status ({status}) selected. Refresh and try again')
             return redirect('case-details', incident_id)
         event = IncidentEvent()
         event.type = status_

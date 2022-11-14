@@ -42,11 +42,11 @@ def police_login(request):
 
             if user and user.profile.role == UserRoles.POLICE:
                 login(request, user)
-                # messages.success(request, 'Login successful')
+                messages.success(request, 'Login successful')
                 # messages.info(request, f'Welcome back {user.username}')
                 return redirect('police-dashboard')
             else:
                 pass
-                # messages.warning(request, 'Invalid username or password for police account')
+                messages.warning(request, 'Invalid username or password for police account')
 
     return render(request, 'accounts/police-login.html', {'form': form})
