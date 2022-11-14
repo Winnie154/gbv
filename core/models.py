@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from accounts.models import Gender
@@ -64,6 +65,14 @@ class OffenceCategory(models.TextChoices):
     Other = 'Other', _('Other')
 
 
+class IncidentEventType(models.TextChoices):
+    PENDING = 'Pending'
+    POLICE_ADDED = 'Police Added'
+    INVESTIGATION_STARTED = 'Investigation Started'
+    CASE_IN_COURT = 'Case In Court'
+    CASE_CLOSED = 'Case Closed'
+
+
 class Relationship(models.TextChoices):
     Spouse = "Spouse", _('Spouse')
     Friend = "Friend", _('Friend')
@@ -83,7 +92,17 @@ class Incident(models.Model):
     relationship_to_perpetrator = models.CharField(max_length=100, choices=Relationship.choices)
     perpetrator_image = models.ImageField(blank=True, null=True)
 
+    police = models.ManyToManyField(to=User, related_name='police', blank=True, null=True)
+
     def __str__(self):
         if self.pk:
             return f'{self.user.username} crime({self.pk})'
         return super(Incident, self).__str__()
+
+
+class IncidentEvent(models.Model):
+    incident = models.ForeignKey(Incident, on_delete=models.CASCADE)
+    type = models.CharField(max_length=150, choices=IncidentEventType.choices)
+    desc = models.TextField()
+    event_by = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
+    date_created = models.DateTimeField(default=timezone.now)

@@ -1,6 +1,11 @@
+from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+
+from accounts.forms import LoginForm
+from accounts.models import UserRoles
 
 
 def register(request):
@@ -21,3 +26,25 @@ def register(request):
         else:
             messages.warning(request, user_form.errors)
     return render(request, 'accounts/register.html')
+
+
+def police_login(request):
+    form = LoginForm()
+
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = authenticate(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password']
+            )
+
+            if user and user.profile.role == UserRoles.POLICE:
+                login(request, user)
+                messages.success(request, 'Login successful')
+                messages.info(request, f'Welcome back {user.username}')
+                return redirect('police-dashboard')
+            else:
+                messages.warning(request, 'Invalid username or password for police account')
+
+    return render(request, 'accounts/police-login.html', {'form': form})

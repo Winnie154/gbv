@@ -14,6 +14,12 @@ class MaritalStatus(models.TextChoices):
     MARRIED = 'Married'
 
 
+class UserRoles(models.TextChoices):
+    USER = 'User'
+    POLICE = 'Police'
+    ADMIN = 'Admin'
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=50, blank=True, null=True, unique=True)
@@ -21,6 +27,7 @@ class Profile(models.Model):
     full_name = models.CharField(max_length=200, blank=True, null=True)
     gender = models.CharField(max_length=30, choices=Gender.choices, blank=True, null=True)
     marital_status = models.CharField(max_length=30, choices=MaritalStatus.choices, blank=True, null=True)
+    role = models.CharField(max_length=30, choices=UserRoles.choices, default=UserRoles.USER)
 
     def __str__(self):
         return f'{self.user.username} Profile'

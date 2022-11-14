@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+
+{% block page_name %}
+    Dashboard
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">All Cases</h4>
+                <p class="card-category"> All Cases</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                        <th>Case No</th>
+                        <th>Perpetrator</th>
+                        <th>Date Reported</th>
+                        <th>Case Status</th>
+                        <th>Image</th>
+                        </thead>
+                        <tbody>
+                        {% if incidents %}
+                            {% for incident in incidents %}
+                                <tr>
+                                    <td>{{ incident.pk }}</td>
+                                    <td>{{ incident.perpetrator_name }}</td>
+                                    <td>{{ incident.date_of_incident|timesince }} ago</td>
+                                    <td>Pending</td>
+                                    <td>
+{#                                        {% if incident.perpetrator_image %}#}
+{#                                            <div class="card-profile shadow-none">#}
+{#                                                <div class="card-avatar shadow-none">#}
+{#                                                    <a href="#pablo">#}
+{#                                                        <img class="img" src="{{ incident.perpetrator_image.url }}"/>#}
+{#                                                    </a>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        {% else %}#}
+{#                                            No Image Provided#}
+{#                                        {% endif %}#}
+                                        <a href="{% url 'case-details' incident.pk %}" class="btn btn-primary btn-round">View Details</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr><td></td><td></td><td colspan="3"><span class="text-center">You have not been assigned any case yet.</span></td></tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

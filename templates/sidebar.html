@@ -11,27 +11,31 @@
     </a></div>
     <div class="sidebar-wrapper">
         <ul class="nav">
+            {% if user.profile.role == 'User' %}
+                <li class="nav-item  ">
+                    <a class="nav-link" href="{% url 'dashboard' %}">
+                        <i class="material-icons">dashboard</i>
+                        <p>Report Case</p>
+                    </a>
+                </li>
+            {% endif %}
 
-            <li class="nav-item  ">
-                <a class="nav-link" href="{% url 'dashboard' %}">
-                    <i class="material-icons">dashboard</i>
-                    <p>Report Case</p>
-                </a>
-            </li>
+            {% if user.profile.role == 'Police' %}
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'police-dashboard' %}">
+                        <i class="material-icons">content_paste</i>
+                        <p>Cases</p>
+                    </a>
+                </li>
+            {% else %}
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'cases' %}">
+                        <i class="material-icons">content_paste</i>
+                        <p>Cases</p>
+                    </a>
+                </li>
+            {% endif %}
 
-            <li class="nav-item ">
-                <a class="nav-link" href="{% url 'cases' %}">
-                    <i class="material-icons">content_paste</i>
-                    <p>Cases</p>
-                </a>
-            </li>
-
-{#            <li class="nav-item ">#}
-{#                <a class="nav-link" href="#">#}
-{#                    <i class="material-icons">bubble_chart</i>#}
-{#                    <p>Links</p>#}
-{#                </a>#}
-{#            </li>#}
             <li class="nav-item ">
                 <a class="nav-link" href="{% url 'logout' %}">
                     <i class="material-icons">lock</i>

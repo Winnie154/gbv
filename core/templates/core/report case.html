@@ -21,15 +21,15 @@
                         <tbody>
                         {% for incident in incidents %}
                             <tr>
-                                <td>{{ incident.pk }}</td>
+                                <td>#{{ incident.pk }}</td>
                                 <td>{{ incident.perpetrator_name }}</td>
                                 <td>{{ incident.date_of_incident|timesince }} ago</td>
-                                <td>Pending</td>
+                                <td> <span class="text-primary">{{ incident.incidentevent_set.last.get_type_display }}</span> </td>
                                 <td>
                                     {% if incident.perpetrator_image %}
                                         <div class="card-profile shadow-none">
                                             <div class="card-avatar shadow-none">
-                                                <a href="#pablo">
+                                                <a href="">
                                                     <img class="img" src="{{ incident.perpetrator_image.url }}"/>
                                                 </a>
                                             </div>

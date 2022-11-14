@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Case Details
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-md-8">
+        <div class="card card-plain">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title mt-0"> Case #{{ case.id }} Details</h4>
+                {#                <p class="card-category"> Here is a subtitle for this table</p>#}
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        {#                        <thead class="">#}
+                        {#                            <th>ID</th>#}
+                        {#                            <th>Name</th>#}
+                        {#                            <th>Country</th>#}
+                        {#                            <th>City</th>#}
+                        {#                            <th>Salary</th>#}
+                        {#                        </thead>#}
+                        <tbody>
+                        <tr>
+                            <td>Case Number</td>
+                            <td>{{ case.id }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Perpetrator</td>
+                            <td>{{ case.perpetrator_name }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Reported By</td>
+                            <td>{{ case.user.username }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Date Reported</td>
+                            <td>{{ case.date_of_incident }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Perpetrator Image</td>
+                            <td>
+                                {% if case.perpetrator_image %}
+                                    <img src="{{ case.perpetrator_image.url }}" width="100px" height="100px"
+                                         alt="{{ case.perpetrator_name }} image"/>
+                                {% else %}
+                                    No Image Uploaded
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Police working on case</td>
+                            <td>{{ case.police.count }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Status</td>
+                            <td>{{ case.incidentevent_set.last.get_type_display }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Update Status</td>
+                            <td>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="case_id" value="{{ case.pk }}">
+                                    <select class="form-control selectpicker" data-style="btn btn-link" required id="status" name="status">
+                                        <option>--Select Status--</option>
+                                        {% for event in events %}
+                                            <option value="{{ event.value }}">{{ event.key }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <input type="submit" class="btn btn-primary ml-3" value="Update Status">
+                                </form>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-plain">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title mt-0"> Case #{{ case.id }} Events</h4>
+                {#                <p class="card-category"> Here is a subtitle for this table</p>#}
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                        {% if case.incidentevent_set.count > 0 %}
+
+                            {% for event in case.incidentevent_set.all %}
+                                <tr>
+                                    <td>{{ event.date_created }}</td>
+                                    <td>{{ event.get_type_display }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="2">No Events yet for this case</td>
+                            </tr>
+                        {% endif %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
