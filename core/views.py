@@ -70,7 +70,7 @@ def case_details(request, incident_id):
         event.incident = case
         event.event_by = request.user
         event.save()
-        # messages.success(request, 'Case Status Updated Successfully')
+        messages.success(request, 'Case Status Updated Successfully')
         return redirect('case-details', incident_id)
 
     context = {
