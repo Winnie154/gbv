@@ -21,10 +21,11 @@ def register(request):
             profile.phone_number = data['phone_number']
             profile.date_of_birth = data['date_of_birth']
             profile.save()
-            messages.success(request, 'Account created successfully')
+            # messages.success(request, 'Account created successfully')
             return redirect("login")
         else:
-            messages.warning(request, user_form.errors)
+            pass
+            # messages.warning(request, user_form.errors)
     return render(request, 'accounts/register.html')
 
 
@@ -41,10 +42,11 @@ def police_login(request):
 
             if user and user.profile.role == UserRoles.POLICE:
                 login(request, user)
-                messages.success(request, 'Login successful')
-                messages.info(request, f'Welcome back {user.username}')
+                # messages.success(request, 'Login successful')
+                # messages.info(request, f'Welcome back {user.username}')
                 return redirect('police-dashboard')
             else:
-                messages.warning(request, 'Invalid username or password for police account')
+                pass
+                # messages.warning(request, 'Invalid username or password for police account')
 
     return render(request, 'accounts/police-login.html', {'form': form})
