@@ -71,6 +71,7 @@ class IncidentEventType(models.TextChoices):
     INVESTIGATION_STARTED = 'Investigation Started'
     CASE_IN_COURT = 'Case In Court'
     CASE_CLOSED = 'Case Closed'
+    POLICE_REMOVED = 'Police Removed'
 
 
 class Relationship(models.TextChoices):

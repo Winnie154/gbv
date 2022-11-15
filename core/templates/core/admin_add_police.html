@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+
+{% block page_name %}
+    Dashboard
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="col-md-8 ">
+        <div class="card card-plain bg-white">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title mt-0"> All Police</h4>
+                {#                <p class="card-category"> Here is a subtitle for this table</p>#}
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover text-black">
+                        <thead>
+                        <th>#</th>
+                        <th>Username</th>
+                        <th>Last Login</th>
+                        </thead>
+                        <tbody>
+
+                        {% for item in police %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ item.username }}</td>
+
+                                <td>
+                                    {% if item.last_login %}
+
+                                        {{ item.last_login }}
+                                    {% else %}
+                                        Not Logged In Yet
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 text-white">
+        <div class="card bg-white">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Add New Police</h4>
+                <p class="card-category">Enter details below</p>
+            </div>
+            <div class="card-body">
+                <form method="post" class="form-validate">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username" class="bmd-label-floating">Username</label>
+                        <input type="text" required class="input-material" id="username"
+                               name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password1" class="bmd-label-floating">Create Password</label>
+                        <input type="password" required class="input-material" id="password1"
+                               name="password1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password2" class="bmd-label-floating">Confirm Password</label>
+                        <input type="password" required class="input-material" id="password2"
+                               name="password2">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

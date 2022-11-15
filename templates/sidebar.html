@@ -11,30 +11,43 @@
     </a></div>
     <div class="sidebar-wrapper">
         <ul class="nav">
-            {% if user.profile.role == 'User' %}
+            {% if user.is_superuser %}
+                <li class="nav-item  ">
+                    <a class="nav-link" href="{% url 'create-police' %}">
+                        <i class="material-icons">dashboard</i>
+                        <p>Police</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'admin-dashboard' %}">
+                        <i class="material-icons">content_paste</i>
+                        <p>Cases</p>
+                    </a>
+                </li>
+            {% elif user.profile.role == 'User' %}
                 <li class="nav-item  ">
                     <a class="nav-link" href="{% url 'dashboard' %}">
                         <i class="material-icons">dashboard</i>
                         <p>Report Case</p>
                     </a>
                 </li>
-            {% endif %}
-
-            {% if user.profile.role == 'Police' %}
-                <li class="nav-item ">
-                    <a class="nav-link" href="{% url 'police-dashboard' %}">
-                        <i class="material-icons">content_paste</i>
-                        <p>Cases</p>
-                    </a>
-                </li>
-            {% else %}
                 <li class="nav-item ">
                     <a class="nav-link" href="{% url 'cases' %}">
                         <i class="material-icons">content_paste</i>
                         <p>Cases</p>
                     </a>
                 </li>
+            {% elif user.profile.role == 'Police' %}
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'police-dashboard' %}">
+                        <i class="material-icons">content_paste</i>
+                        <p>Cases</p>
+                    </a>
+                </li>
             {% endif %}
+
+
+
 
             <li class="nav-item ">
                 <a class="nav-link" href="{% url 'logout' %}">
