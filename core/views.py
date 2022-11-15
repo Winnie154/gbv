@@ -15,6 +15,8 @@ def empty(request):
 
 @login_required
 def dashboard(request):
+    if request.user.is_superuser:
+        return redirect('admin-dashboard')
     if request.method == 'POST':
         form = IncidentForm(request.POST, request.FILES)
         if form.is_valid():
