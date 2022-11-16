@@ -27,8 +27,10 @@ def dashboard(request):
         else:
             pass
             # messages.warning(request, form.errors)
-
-    return render(request, 'core/dashboard.html')
+    context = {
+        'counties': [{'key': x[0], 'value': x[1]} for x in Counties.choices]
+    }
+    return render(request, 'core/dashboard.html', context)
 
 
 @login_required

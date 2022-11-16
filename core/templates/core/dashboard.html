@@ -42,28 +42,28 @@
                 <form method="post" class="form-validate" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="perpetrator_name" class="bmd-label-floating">Perpetrator Name</label>
-                        <input type="text" required class="input-material" id="perpetrator_name"
+{#                        <label for="perpetrator_name" class="bmd-label-floating">Perpetrator Name</label>#}
+                        <input type="text" required class="input-material" id="perpetrator_name" placeholder="Perpetrator Name"
                                name="perpetrator_name">
                     </div>
                     <div class="form-group">
-                        <label for="perpetrator_phone_number" class="bmd-label-floating">Perpetrator Phone
-                            Number</label>
-                        <input type="text" required class="input-material" id="perpetrator_phone_number"
+{#                        <label for="perpetrator_phone_number" class="bmd-label-floating">Perpetrator Phone#}
+{#                            Number</label>#}
+                        <input type="text" required class="input-material" id="perpetrator_phone_number" placeholder="Perpetrator Phone Number"
                                name="perpetrator_phone_number">
                     </div>
                     <div class="form-group">
-                        <label for="perpetrator_residence" class="bmd-label-floating">Perpetrator Residence
-                            [Optional]</label>
-                        <input type="text" class="input-material" id="perpetrator_residence"
+{#                        <label for="perpetrator_residence" class="bmd-label-floating">Perpetrator Residence#}
+{#                            [Optional]</label>#}
+                        <input type="text" class="input-material" id="perpetrator_residence" placeholder="Perpetrator Residence [Optional]"
                                name="perpetrator_residence">
                     </div>
 
                     <div class="form-group">
-                        <label for="perpetrator_gender">Perpetrator Gender</label>
+{#                        <label for="perpetrator_gender">Perpetrator Gender</label>#}
                         <select class="form-control selectpicker" data-style="btn btn-link" required
                                 id="perpetrator_gender" name="perpetrator_gender">
-                            <option></option>
+                            <option value="">--select gender--</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
@@ -73,17 +73,18 @@
 
                     <div class="form-group">
                         <div class='input-group date' id='dob-picker'>
-                            <label for="dob">Date Of Incident</label>
+{#                            <label for="dob">Date Of Incident</label>#}
                             <input type='datetime-local' name="date_of_incident" id="dob" class="input-material"/>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="crime_type" class="md-label-floating">Crime Type</label>
+{#                        <label for="crime_type" class="md-label-floating">Crime Type</label>#}
                         <select class="form-control selectpicker" data-style="btn btn-link" required
                                 id="crime_type" name="offence_category">
-                            <option></option>
+
+                            <option value="">--Select Crime Type--</option>
                             <option value="Stalking">Stalking</option>
                             <option value="Sexual Violence">Sexual Violence</option>
                             <option value="Physical Violence">Physical Violence</option>
@@ -94,11 +95,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="relationship_to_perpetrator" class="md-label-floating">Relationship With
-                            Perpetrator</label>
+{#                        <label for="relationship_to_perpetrator" class="md-label-floating">Relationship With#}
+{#                            Perpetrator</label>#}
                         <select class="form-control selectpicker" data-style="btn btn-link" required
                                 id="relationship_to_perpetrator" name="relationship_to_perpetrator">
-                            <option></option>
+                            <option value="">--Select Relationship with Perpetrator--</option>
                             <option value="Spouse">Spouse</option>
                             <option value="Friend">Friend</option>
                             <option value="Relative">Relative</option>
@@ -106,10 +107,10 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="county_of_incident" class="md-label-floating">County Where Incident Occurred</label>
+{#                        <label for="county_of_incident" class="md-label-floating">County Where Incident Occurred</label>#}
                         <select class="form-control selectpicker" data-style="btn btn-link" required
                                 id="county_of_incident" name="county_of_incident">
-                            <option></option>
+                            <option value="">--Select County Where Incident Occurred--</option>
                             {% for county in counties %}
                                 <option value="{{ county.value }}">{{ county.key }}</option>
                             {% endfor %}
@@ -117,8 +118,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="location" class="bmd-label-floating">Location</label>
-                        <input type="text" required class="input-material" id="location"
+{#                        <label for="location" class="bmd-label-floating">Location</label>#}
+                        <input type="text" required class="input-material" id="location" placeholder="Location..."
                                name="location">
                     </div>
                     <div class="">
