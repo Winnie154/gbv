@@ -18,6 +18,7 @@ class UserRoles(models.TextChoices):
     USER = 'User'
     POLICE = 'Police'
     ADMIN = 'Admin'
+    OCS = 'OCS'
 
 
 class Profile(models.Model):
@@ -28,6 +29,7 @@ class Profile(models.Model):
     gender = models.CharField(max_length=30, choices=Gender.choices, blank=True, null=True)
     marital_status = models.CharField(max_length=30, choices=MaritalStatus.choices, blank=True, null=True)
     role = models.CharField(max_length=30, choices=UserRoles.choices, default=UserRoles.USER)
+    id_number = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'

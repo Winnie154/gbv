@@ -39,14 +39,30 @@ def police_login(request):
                 username=form.cleaned_data['username'],
                 password=form.cleaned_data['password']
             )
+            role = request.POST.get('role')
+            if role:
+                role = role.lower()
 
-            if user and user.profile.role == UserRoles.POLICE:
-                login(request, user)
-                messages.success(request, 'Login successful')
-                # messages.info(request, f'Welcome back {user.username}')
-                return redirect('police-dashboard')
-            else:
-                pass
-                messages.warning(request, 'Invalid username or password for police account')
+            if role == 'police':
+                if user and user.profile.role == UserRoles.POLICE:
+                    login(request, user)
+                    messages.success(request, 'Login successful')
+                    return redirect('police-dashboard')
+                else:
+                    messages.warning(request, 'Invalid username or password for police account')
+            elif role == 'admin':
+                if user and user.profile.role == UserRoles.ADMIN:
+                    login(request, user)
+                    messages.success(request, 'Login successful')
+                    return redirect('admin-dashboard')
+                else:
+                    messages.warning(request, 'Invalid username or password for admin account')
 
+            elif role == 'ocs':
+                if user and user.profile.role == UserRoles.OCS:
+                    login(request, user)
+                    messages.success(request, 'Login successful')
+                    return redirect('ipoa-dashboard')
+                else:
+                    messages.warning(request, 'Invalid username or password for ocs account')
     return render(request, 'accounts/police-login.html', {'form': form})

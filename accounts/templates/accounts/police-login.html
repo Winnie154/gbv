@@ -38,17 +38,7 @@
                                     </div>
                                 {% endfor %}
                             {% endif %}
-                            {#                            <form method="post" class="form-validate">#}
-                            {##}
-                            {#                                <div class="form-group">#}
-                            {#                                    <input id="login-username" type="text" name="institution_id" required#}
-                            {#                                           data-msg="Please enter your Institution ID" class="input-material">#}
-                            {#                                    <label for="login-username" class="label-material">Institution ID</label>#}
-                            {#                                </div>#}
-                            {#                                <input type="submit" class="btn btn-primary" value="Submit"/>#}
-                            {#                                <!-- This should be submit button but I replaced it with <a> for demo purposes-->#}
-                            {##}
-                            {#                            </form>#}
+
                             <form method="post" class="form-validate">
                                 {% csrf_token %}
                                 <div class="form-group">
@@ -56,6 +46,15 @@
                                            data-msg="Please enter your username" class="input-material">
                                     <label for="login-username" class="label-material">Username</label>
                                 </div>
+
+                                <select class="form-control selectpicker" data-style="btn btn-link" required
+                                            id="status"
+                                            name="role">
+                                        <option value="">--Select Type--</option>
+                                            <option>Police</option>
+                                            <option>Admin</option>
+                                            <option>OCS</option>
+                                    </select>
                                 <div class="form-group">
                                     <input id="login-password" type="password" name="password" required
                                            data-msg="Please enter your password" class="input-material">
