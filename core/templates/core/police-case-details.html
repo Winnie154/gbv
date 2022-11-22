@@ -29,6 +29,23 @@
                         </tr>
 
                         <tr>
+                            <td>Victim Name</td>
+                            <td>{{ case.user.profile.full_name }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Victim Id Number</td>
+                            <td>{{ case.user.profile.id_number }}</td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Reported By</td>
+                            <td>{{ case.reported_by }}</td>
+                        </tr>
+
+
+                        <tr>
                             <td>Perpetrator</td>
                             <td>{{ case.perpetrator_name }}</td>
                         </tr>
@@ -40,8 +57,14 @@
 
                         <tr>
                             <td>Date Reported</td>
+                            <td>{{ case.date_created }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Date Incident Occurred</td>
                             <td>{{ case.date_of_incident }}</td>
                         </tr>
+
 
                         <tr>
                             <td>Perpetrator Image</td>
@@ -71,7 +94,8 @@
                                 <form method="post">
                                     {% csrf_token %}
                                     <input type="hidden" name="case_id" value="{{ case.pk }}">
-                                    <select class="form-control selectpicker" data-style="btn btn-link" required id="status" name="status">
+                                    <select class="form-control selectpicker" data-style="btn btn-link" required
+                                            id="status" name="status">
                                         <option>--Select Status--</option>
                                         {% for event in events %}
                                             <option value="{{ event.value }}">{{ event.key }}</option>

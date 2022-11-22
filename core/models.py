@@ -63,6 +63,8 @@ class Incident(models.Model):
     perpetrator_gender = models.CharField(max_length=20, choices=Gender.choices)
     relationship_to_perpetrator = models.CharField(max_length=100, choices=Relationship.choices)
     perpetrator_image = models.ImageField(blank=True, null=True)
+    date_created = models.DateTimeField(default=timezone.now)
+    reported_by = models.CharField(max_length=150, default=None, blank=True, null=True)
 
     police = models.ManyToManyField(to=User, related_name='police', blank=True)
     station = models.ForeignKey(PoliceStation, on_delete=models.CASCADE, null=True, blank=True, default=None)

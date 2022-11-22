@@ -35,7 +35,7 @@
                                 <tr>
                                     <td>{{ incident.pk }}</td>
                                     <td>{{ incident.perpetrator_name }}</td>
-                                    <td>{{ incident.date_of_incident|timesince }} ago</td>
+                                    <td>{{ incident.date_created|timesince }} ago</td>
                                     <td>Pending</td>
                                     <td>
 {#                                        {% if incident.perpetrator_image %}#}

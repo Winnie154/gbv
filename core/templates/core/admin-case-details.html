@@ -29,6 +29,22 @@
                         </tr>
 
                         <tr>
+                            <td>Victim Name</td>
+                            <td>{{ case.user.profile.full_name }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Victim Id Number</td>
+                            <td>{{ case.user.profile.id_number }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Reported By</td>
+                            <td>{{ case.reported_by }}</td>
+                        </tr>
+
+
+                        <tr>
                             <td>Perpetrator</td>
                             <td>{{ case.perpetrator_name }}</td>
                         </tr>
@@ -40,6 +56,11 @@
 
                         <tr>
                             <td>Date Reported</td>
+                            <td>{{ case.date_created }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Date Incident Occurred</td>
                             <td>{{ case.date_of_incident }}</td>
                         </tr>
 
@@ -136,9 +157,9 @@
                     <div class="table-responsive">
                         <table class="table table-hover text-black">
                             <thead>
-                            <th> <span class="font-weight-bold">Username</span></th>
-                            <th> <span class="font-weight-bold">Date Joined</span></th>
-                            <th> <span class="font-weight-bold">ACTION</span></th>
+                            <th><span class="font-weight-bold">Username</span></th>
+                            <th><span class="font-weight-bold">Date Joined</span></th>
+                            <th><span class="font-weight-bold">ACTION</span></th>
                             </thead>
                             <tbody>
                             {% if case.police.count > 0 %}

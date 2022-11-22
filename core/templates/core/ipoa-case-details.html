@@ -29,6 +29,23 @@
                         </tr>
 
                         <tr>
+                            <td>Victim Name</td>
+                            <td>{{ case.user.profile.full_name }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Victim Id Number</td>
+                            <td>{{ case.user.profile.id_number }}</td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Reported By</td>
+                            <td>{{ case.reported_by }}</td>
+                        </tr>
+
+
+                        <tr>
                             <td>Perpetrator</td>
                             <td>{{ case.perpetrator_name }}</td>
                         </tr>
@@ -37,9 +54,13 @@
                             <td>Reported By</td>
                             <td>{{ case.user.username }}</td>
                         </tr>
-
                         <tr>
                             <td>Date Reported</td>
+                            <td>{{ case.date_created }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Date Incident Occurred</td>
                             <td>{{ case.date_of_incident }}</td>
                         </tr>
 
@@ -77,8 +98,8 @@
         </div>
     </div>
 
-    {% if case.station %}
-    {% else %}
+{#    {% if case.station %}#}
+{#    {% else %}#}
 
         <div class="col-md-8">
             <div class="card card-plain bg-white">
@@ -115,6 +136,6 @@
 
 
         </div>
-    {% endif %}
+{#    {% endif %}#}
 
 {% endblock %}

@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db.models import OuterRef, Subquery
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from djqscsv import render_to_csv_response
 
 from accounts.models import UserRoles
@@ -18,8 +19,38 @@ def empty(request):
 
 
 @login_required
-def dashboard(request):
+def report_case(request):
+    if request.method == 'POST':
+        form = IncidentForm(request.POST, request.FILES)
 
+        if form.is_valid():
+
+            try:
+                victim = User.objects.get(pk=form.cleaned_data['victim_id'])
+            except User.DoesNotExist:
+                messages.warning(request, 'Victim not found')
+                return redirect('report')
+
+            incident = form.save(commit=False)
+            incident.user = victim
+            incident.save()
+            return redirect('cases')
+        else:
+            pass
+            # messages.warning(request, form.errors)
+
+    return render(request, 'core/dashboard.html', {
+        'counties': [{'key': x[0], 'value': x[1]} for x in Counties.choices],
+        'victims': User.objects.filter(profile__role='User')
+    })
+
+
+@login_required
+def dashboard(request):
+    if request.user.profile.role.lower() != 'user':
+        messages.warning(request,
+                         'You are not authorized to view this page. Use alternative login to login with your role')
+        return redirect('logout')
     if request.method == 'POST':
         form = IncidentForm(request.POST, request.FILES)
         if form.is_valid():
@@ -33,7 +64,7 @@ def dashboard(request):
     context = {
         'counties': [{'key': x[0], 'value': x[1]} for x in Counties.choices]
     }
-    return render(request, 'core/dashboard.html', context)
+    return render(request, 'core/report case.html', context)
 
 
 @login_required
@@ -239,8 +270,8 @@ def ipoa_dashboard_view(request):
             .annotate(police_removed_at=Subquery(police_removed_event.values('date_created')[:1])) \
             .annotate(case_status=Subquery(case_status.values('type')[:1])) \
             .values('user__username', 'offence_category', 'date_of_incident', 'county_of_incident',
-                    'location_of_incident',
-                    'perpetrator_name', 'perpetrator_name', 'relationship_to_perpetrator', 'station__name',
+                    'location_of_incident', 'reported_by',
+                    'perpetrator_name', 'relationship_to_perpetrator', 'station__name',
                     'user__profile__id_number', 'station__ocs__profile__id_number', 'case_reported_at',
                     'investigation_at', 'police_added_at', 'police_removed_at', 'case_in_court_at', 'case_closed_at',
                     'station_assigned_at', 'case_status'
@@ -259,12 +290,13 @@ def ipoa_dashboard_view(request):
             'station__name': 'Station Name',
             'station__ocs__profile__id_number': 'OCS ID',
             'case_reported_at': 'Reported At',
-            'station_assigned_at': 'Reported At',
+            'station_assigned_at': 'Station Assigned At',
             'police_added_at': 'Police Added At',
             'investigation_at': 'Investigation Started At',
             'case_in_court_at': 'Case Taken To Court At',
             'police_removed_at': 'Police Removed At',
             'case_closed_at': 'Case Closed At',
+            'reported_by': 'Reported By'
         }
 
         field_modifier = {
@@ -320,6 +352,7 @@ def ipoa_case_assign_view(request, incident_id):
             return redirect('ipoa-dashboard')
 
         station_.incident_set.add(incident_)
+        IncidentEvent.objects.create(incident=incident_, type=IncidentEventType.STATION_ASSIGNED, event_by=request.user, desc='Station assigned')
         station_.save()
         messages.success(request, f'Incident has been assigned to Station {station_.pk} [ {station_.name} ]')
         return redirect('ipoa-case-details', incident_id=incident_id)

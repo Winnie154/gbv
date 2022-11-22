@@ -4,6 +4,7 @@ from core.views import *
 
 urlpatterns = [
     path('', dashboard, name='dashboard'),
+    path('report/', report_case, name='report'),
     path('cases/', cases_views, name='cases'),
     path('police/', police_dashboard, name='police-dashboard'),
     path('case/<int:incident_id>/details/', case_details, name='case-details'),

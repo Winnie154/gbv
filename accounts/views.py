@@ -16,6 +16,7 @@ def register(request):
             user = user_form.save()
             profile = user.profile
             profile.full_name = data['name']
+            profile.id_number = data['id_number']
             profile.marital_status = data['marital_status']
             profile.gender = data['gender']
             profile.phone_number = data['phone_number']
@@ -54,7 +55,7 @@ def police_login(request):
                 if user and user.profile.role == UserRoles.ADMIN:
                     login(request, user)
                     messages.success(request, 'Login successful')
-                    return redirect('admin-dashboard')
+                    return redirect('ipoa-dashboard')
                 else:
                     messages.warning(request, 'Invalid username or password for admin account')
 
@@ -62,7 +63,7 @@ def police_login(request):
                 if user and user.profile.role == UserRoles.OCS:
                     login(request, user)
                     messages.success(request, 'Login successful')
-                    return redirect('ipoa-dashboard')
+                    return redirect('admin-dashboard')
                 else:
                     messages.warning(request, 'Invalid username or password for ocs account')
     return render(request, 'accounts/police-login.html', {'form': form})
