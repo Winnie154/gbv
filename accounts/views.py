@@ -22,11 +22,11 @@ def register(request):
             profile.phone_number = data['phone_number']
             profile.date_of_birth = data['date_of_birth']
             profile.save()
-            # messages.success(request, 'Account created successfully')
+            messages.success(request, 'Account created successfully')
             return redirect("login")
         else:
             pass
-            # messages.warning(request, user_form.errors)
+            messages.warning(request, user_form.errors)
     return render(request, 'accounts/register.html')
 
 
